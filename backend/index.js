@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = 3000
 const userRouter=require("./router/user")
+const { default: mongoose } = require("mongoose")
+const dotenv=require("dotenv")
+dotenv.config()
 
 app.use(express.json());
 app.use('/user',userRouter) 
@@ -13,3 +16,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+mongoose.connect(process.env.MONGO_URL, {  dbName: "E-Learning-Platform" })
