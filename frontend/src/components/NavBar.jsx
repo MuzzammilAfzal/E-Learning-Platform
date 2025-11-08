@@ -1,13 +1,15 @@
 import React  from 'react'
 import {Sidebar, X} from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const NavLogin = () => {
         const Navigate = useNavigate();
+        const location=useLocation()
 
         // function loginBtn=()=>{
         //   Navigate("/")
         // }
+        
 
 
   return (
@@ -25,7 +27,12 @@ const NavLogin = () => {
     <div>
       <nav className='navbar h-20 flex flex-wrap justify-around items-center shadow-xl'>
         <h1 className='h1 text-2xl font-medium'>EdTech</h1>
-        <Link to='/login' className='loginBtn bg-blue-500 text-white block p-2 pr-4 pl-4 rounded-xl'>Login</Link>
+        {
+          location.pathname!="/login" &&  <Link to='/login' className='loginBtn bg-blue-500 text-white block p-2 pr-4 pl-4 rounded-xl'>Login</Link>
+        }
+        {
+          location.pathname=="/login" &&  <Link to='/signup' className='loginBtn bg-blue-500 text-white block p-2 pr-4 pl-4 rounded-xl'>SignUp</Link>
+        }
       </nav>
     </div>
   )

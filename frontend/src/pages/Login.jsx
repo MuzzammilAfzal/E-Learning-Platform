@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import NavLogin from './NavLogin'
-import NavSignup from './NavSignup'
+import NavLogin from '../components/NavBar'
+import NavSignup from '../components/NavSignupf'
 import { Link } from 'react-router-dom'
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
 
   return (
     <div>
-      <NavSignup/>
+      
       <section className='section w-full h-full flex flex-col md:flex-row md:items-center'>
         <img src="./login-image.jpg" alt="" className='img h-70 m-auto md:w-[50%] md:h-140 md:mt-10 md:ml-5 md:mr-5'/>
         <div>
