@@ -1,17 +1,41 @@
 import React, { useState } from 'react'
-import NavLogin from '../components/NavBar'
-import NavSignup from '../components/NavSignupf'
-import { Link } from 'react-router-dom'
+import { data, Link, useNavigate } from 'react-router-dom'
+const backendUrl=import.meta.env.VITE_BACKEND_URL
+import {toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
       const [email,setEmail]= useState("");
       const [psw,setPsw]= useState("");
 
-      const handleSubmit=(e)=>{
+      const navigate=useNavigate()
+
+      const handleSubmit=async(e)=>{
         e.preventDefault();
-        console.log(email);
-        console.log(psw);
-        e.target.reset();
+        const response = await fetch(`${backendUrl}/user/login`, {
+         method: "POST",
+         headers: {
+          "Content-Type": "application/json",
+           },
+         body: JSON.stringify({
+          email: email,
+          password: psw
+         })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+         if(data.token){
+            sessionStorage.setItem("token",data.token)
+            toast.success(data.message)
+            navigate('/')
+         }
+          } else {
+            const data = await response.json();
+        console.log("Request Failed:", response.status);
+        toast.error(data.message)
+         }
+        
       }
 
 

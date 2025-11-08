@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
-import NavSignup from '../components/NavSignupf'
-import NavLogin from '../components/NavBar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import {toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const backendUrl=import.meta.env.VITE_BACKEND_URL
 
 const SignUp = () => {
         const [fullname,setFullname]= useState("");
         const [email,setEmail]= useState("");
         const [psw,setPsw]= useState("");
         const [phno,setPhno]= useState("");
+        const [accountType,setAccountType]=useState("")
+
+        const navigate=useNavigate('/')
 
         // const [userDetails,setUserDetails]= useState[{}];
 
@@ -15,19 +19,38 @@ const SignUp = () => {
         //   console.log(userDetails);
         // })
   
-        const handleSubmit=(e)=>{
+        const handleSubmit=async(e)=>{
           e.preventDefault();
           console.log(fullname);
           console.log(email);
           console.log(psw);
           console.log(phno);
-          // setUserDetails({
-          //   fullname:fullname,
-          //   email:email,
-          //   password:psw,
-          //   phoneNumber:phno
-          // })
-          e.target.reset();
+          console.log(accountType)
+           const response = await fetch(`${backendUrl}/user/signUp`, {
+         method: "POST",
+         headers: {
+          "Content-Type": "application/json",
+           },
+         body: JSON.stringify({
+          fullname:fullname,
+          email: email,
+          password: psw,
+          phoneNumber:phno,
+          accountType:accountType
+         })
+        });
+        if (response.ok) {
+                  const data = await response.json();
+                 if(data.token){
+                    sessionStorage.setItem("token",data.token)
+                    toast.success(data.message)
+                    navigate('/')
+                 }
+                  } else {
+                    const data = await response.json();
+                console.log("Request Failed:", response.status);
+                toast.error(data.message)
+                 }
         }
 
   return (
@@ -51,6 +74,12 @@ const SignUp = () => {
                         <input type="phone" placeholder='Phone number' 
                           onChange={(e)=>{setPhno(e.target.value)}} maxLength={10}  
                           className='phone w-[70%] md:w-full border-2 p-3 mb-5 rounded-sm' />
+                        <select  onChange={(e) => setAccountType(e.target.value)}
+                           className="w-[70%] md:w-full border-2 p-3 mb-5 rounded-sm">
+                          <option value="" disabled selected>Select Role</option>
+                          <option value="student">Student</option>
+                          <option value="mentor">Mentor</option>
+                        </select>
                         <input type="submit" value="Continue" className='btn w-[70%] md:w-full h-10 bg-blue-500 rounded-xs text-white text-xl' />
                   </form>
                   <h2 className='h2 text-center mt-5 md:text-xl'>Already have an account?
