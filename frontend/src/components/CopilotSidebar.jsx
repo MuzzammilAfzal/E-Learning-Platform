@@ -26,7 +26,7 @@ const CopilotSidebar = () => {
   return (
     <div
       className={`fixed top-0 right-0 h-full bg-[#5c5470] rounded-l-2xl shadow-xl border-l border-gray-200 transition-all duration-300 ease-in-out ${
-        isOpen ? "w-80" : "w-18"
+        isOpen ? "w-60" : "w-18"
       }`}
     >
       
