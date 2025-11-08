@@ -1,4 +1,6 @@
-const jwt= require("jsonwebtoken")
+
+import jwt from 'jsonwebtoken'
+
 
 
 async function authJwt(req,res,next){
@@ -17,6 +19,4 @@ async function authJwt(req,res,next){
     res.status(400).json({message:"no token"})
  }
 }
-module.exports={
-    authJwt
-}
+export default authJwt;

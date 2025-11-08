@@ -1,6 +1,8 @@
-const express = require('express')
-const { User } = require('../database/db')
-const jwt= require("jsonwebtoken")
+
+
+import express from 'express'
+import { User } from '../database/db.js'
+import jwt from 'jsonwebtoken'
 
 
 const router=express.Router()
@@ -37,4 +39,4 @@ router.post('/signUp',async(req,res)=>{
  }
 })
 
-module.exports=router
+export default router;

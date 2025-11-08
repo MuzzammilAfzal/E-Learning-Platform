@@ -1,13 +1,29 @@
-const express = require('express')
-const app = express()
-const port = 3000
-const userRouter=require("./router/user")
-const { default: mongoose } = require("mongoose")
-const dotenv=require("dotenv")
+
+
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import cors from 'cors'
+
+import userRouter from "./router/user.js";
+import aiRouter from "./router/ai.js";
+
+
+
+const app = express();
+const port = 3000;
+
 dotenv.config()
+
+app.use(cors({origin:"*",
+    methods:["GET","POST","PUT","DELETE"],credentials:true
+}))
 
 app.use(express.json());
 app.use('/user',userRouter) 
+app.use('/ai',aiRouter)
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

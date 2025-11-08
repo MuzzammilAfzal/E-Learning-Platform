@@ -1,4 +1,5 @@
-const mongoose=require("mongoose")
+
+import mongoose from "mongoose";
 
 const userSchema=new mongoose.Schema({
     name:{type:String,required:true,unique:true},
@@ -77,13 +78,5 @@ const Section = mongoose.model("Section", sectionSchema);
 const SubSection = mongoose.model("SubSection", subSectionSchema);
 const Tag = mongoose.model("Tag", tagSchema);
 
-module.exports = {
-  User,
-  Course,
-  Profile,
-  CourseProgress,
-  Section,
-  SubSection,
-  Tag
-};
+export { User, Course, Profile, CourseProgress, Section, SubSection, Tag };
 
