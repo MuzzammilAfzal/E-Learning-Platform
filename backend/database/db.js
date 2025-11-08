@@ -2,16 +2,16 @@
 import mongoose from "mongoose";
 
 const userSchema=new mongoose.Schema({
-    name:{type:String,required:true,unique:true},
+    fullname:{type:String,required:true},
     email:{type:String,required:true,unique:true},
-    contactNumber:{type:Number,required:true,unique:true},
+    phoneNumber:{type:Number,required:true,unique:true},
     password:{type:String,required:true},
     accountType:{type:String,required:true,enum:["mentor","student"],default:"student"},
     // active:{type:String,required:true},
     // approve:{type:String,required:true},
-    courses:[{type:mongoose.Schema.Types.ObjectId, ref:"course"}],
-    profile:[{type:mongoose.Schema.Types.ObjectId, ref:"profile"}],
-    courseProgress:[{type:mongoose.Schema.Types.ObjectId, ref:"courseProgress"}],
+    // courses:[{type:mongoose.Schema.Types.ObjectId, ref:"course"}],
+    // profile:[{type:mongoose.Schema.Types.ObjectId, ref:"profile"}],
+    // courseProgress:[{type:mongoose.Schema.Types.ObjectId, ref:"courseProgress"}],
 })
 
 

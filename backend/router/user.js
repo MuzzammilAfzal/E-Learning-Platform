@@ -25,13 +25,16 @@ router.post('/login',async(req,res)=>{
 })
 
 router.post('/signUp',async(req,res)=>{
- const {name,email,contactNumber,password,accountType, courses,profile,courseProgress} = req.body
+ const {fullname,email,phoneNumber,password,accountType
+   //  courses,profile,courseProgress
+   } = req.body
+   console.log(req.body)
  const user= await User.findOne({email})
  if (user){
     res.status(400).json({message:"User already exists"})
  }
  else{
-    const newUser= await User.create({name,email,contactNumber,password,accountType, courses,profile,courseProgress})
+    const newUser= await User.create({fullname,email,phoneNumber,password,accountType})
     const token=  jwt.sign({email,password},process.env.SECERT_KEY,{expiresIn:"240h"})
     if(newUser && token){
        res.status(200).json({message: "user Created successfully ",token}) 
